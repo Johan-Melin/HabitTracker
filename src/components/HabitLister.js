@@ -3,18 +3,30 @@ import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native
 
 const HabitLister = () => {
     const data = {
-        list1: [1, 2, 3],
-        list2: [4, 5, 6],
-        list3: [7, 8, 9]
+        list1: {
+            habits: [1, 2, 3],
+            text: "Implemented", 
+            color: "#72CC50",
+        },
+        list2: {
+            habits: [4, 5, 6],
+            text: "Implementing", 
+            color: "#019875",
+        },
+        list3: {
+            habits: [7, 8, 9],
+            text: "To implement", 
+            color: "#00AEAD",
+        },
     }
-    const [currentList, setCurrentList] = React.useState(data.list1);
+    const [currentList, setCurrentList] = React.useState(data.list1.habits);
 
-    const NavBarText = ({text, link}) => {
+    const NavBarText = ({list}) => {
         return (
             <TouchableOpacity
-                onPress={() => setCurrentList(link)}
+                onPress={() => setCurrentList(list.habits)}
             >
-                <Text style={styles.navBarText}>{text}</Text>
+                <Text style={[styles.navBarText, {color: list.color}]}>{list.text}</Text>
             </TouchableOpacity>
         )
     }
@@ -25,10 +37,10 @@ const HabitLister = () => {
 
     return (
         <View>
-            <View style={styles.navBar}>
-                <NavBarText text={"Implemented"} link={data.list1} />
-                <NavBarText text={"Implementing"} link={data.list2} />
-                <NavBarText text={"To implement"} link={data.list3} />
+            <View style={styles.navBar}> 
+                <NavBarText list={data.list1} />
+                <NavBarText list={data.list2} />
+                <NavBarText list={data.list3} />
             </View>
             <FlatList
                 data={currentList}
